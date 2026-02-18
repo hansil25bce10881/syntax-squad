@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Desert Environment Detection</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    margin:0;
+    background:linear-gradient(120deg,#ffecd2,#fcb69f);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.container{
+    background:white;
+    width:900px;
+    border-radius:15px;
+    display:flex;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+.left{
+    flex:1;
+    background:linear-gradient(160deg,#e67e22,#f39c12);
+    color:white;
+    padding:40px;
+}
+
+.left h1{font-size:32px;}
+
+.section-title{
+    margin-top:20px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.left p{
+    margin-top:10px;
+    line-height:1.4;
+    font-size:14px;
+}
+
+.right{
+    flex:1;
+    padding:40px;
+    text-align:center;
+}
+
+.upload-box{
+    border:2px dashed #ccc;
+    padding:30px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.upload-box:hover{border-color:#f39c12;}
+
+input{display:none;}
+
+img{
+    max-width:100%;
+    margin-top:15px;
+    border-radius:10px;
+    display:none;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 30px;
+    background:#f39c12;
+    border:none;
+    color:white;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{background:#e67e22;}
+
+.result{margin-top:20px;font-size:20px;font-weight:bold;}
+
+footer{margin-top:15px;font-size:12px;color:#777;}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+<h1>Desert Environment Detection</h1>
+
+<div class="section-title">Objective</div>
+<p>
+To automatically identify terrain and environmental conditions from desert and off-road images using deep learning.
+</p>
+
+<div class="section-title">Detectable Environments</div>
+<p>
+• Dry Grass<br>
+• Rocks<br>
+• Bushes<br>
+• Landscape<br>
+• Sky<br>
+• Desert Sand
+</p>
+
+<div class="section-title">Application</div>
+<p>
+Useful for autonomous vehicles, off-road navigation, robotics, and environmental analysis.
+</p>
+
+<div class="section-title">Technology</div>
+<p>
+Powered by computer vision and convolutional neural networks.
+</p>
+
+</div>
+
+<div class="right">
+
+<h2>Upload Image</h2>
+
+<label class="upload-box">
+<input type="file" id="imageInput" accept="image/*">
+Click or Drag Image Here
+</label>
+
+<img id="preview">
+
+<button onclick="document.getElementById('imageInput').click()">Upload Image</button>
+
+<button onclick="predict()">Detect Environment</button>
+
+<div class="result" id="result"></div>
+
+<footer>
+Frontend Demo • Connect Python Backend Later
+</footer>
+
+</div>
+
+</div>
+
+<script>
+
+const input=document.getElementById("imageInput");
+const preview=document.getElementById("preview");
+const result=document.getElementById("result");
+
+input.addEventListener("change",()=>{
+
+const file=input.files[0];
+
+if(file){
+const reader=new FileReader();
+reader.onload=()=>{
+preview.src=reader.result;
+preview.style.display="block";
+}
+reader.readAsDataURL(file);
+}
+});
+
+function predict(){
+
+if(!input.files.length){
+alert("Please upload an image first");
+return;
+}
+
+const environments=[
+"Dry Grass",
+"Rocks",
+"Bushes",
+"Landscape",
+"Sky",
+"Desert Sand"
+];
+
+const random=environments[Math.floor(Math.random()*environments.length)];
+
+result.innerHTML="Detected Environment: "+random;
+}
+
+</script>
+
+</body>
+</html>
